@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Home, Login, Signup,CropDiagnosis,SoilDiagnosis } from "./pages";
 import {ToastContainer } from 'react-toastify'
 import Layout from "./components/Layout/Layout";
