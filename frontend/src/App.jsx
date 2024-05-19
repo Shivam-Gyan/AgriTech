@@ -1,54 +1,45 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, {useState, useEffect} from "react";
-import { Home, Login, Signup,CropDiagnosis,SoilDiagnosis } from "./pages";
-import {ToastContainer } from 'react-toastify'
+import React, { useEffect, useState } from "react";
+import { Home, Login, Signup, CropDiagnosis } from "./pages";
+import { ToastContainer } from "react-toastify";
 import Layout from "./components/Layout/Layout";
-import { useDispatch } from "react-redux";
-import { getCurrentUserAPI } from "./store/services/userAction";
+import UserProfile from "./pages/UserProfile/UserProfile";
+import axios from "axios";
 
 function App() {
   const [user, setUser] = useState(null)
-  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getCurrentUserAPI())
+    const getCurrentUser = async () => {
+      
+      try {
+        
+          console.log(response.data.data)
+          setUser(response.data.data)
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    getCurrentUser();
   }, []);
 
   return (
     <>
-    <ToastContainer />
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
-          <Route path='/' element={<Layout />}>
+          <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
-            {/* <Route path='/profile' element={<ProtectedUser><UserProfile /></ProtectedUser>} /> */}
-            <Route path='/login' element={<ProtectedRouting><Login /></ProtectedRouting>} />
-            <Route path='/register' element={<ProtectedRouting><Signup /></ProtectedRouting>} />
-            <Route path="/cropdiagnosis" element={<ProtectedUser><CropDiagnosis /></ProtectedUser>} />
-            <Route path="/soildiagnosis" element={<ProtectedUser><SoilDiagnosis /></ProtectedUser>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Signup />} />
+            <Route path="/cropdiagnosis" element={<CropDiagnosis />} />
+            <Route path="/userprofile" element={<UserProfile user={user}/>} />
           </Route>
         </Routes>
       </BrowserRouter>
     </>
   );
-}
-
-
-
-const ProtectedRouting = ({ children }) => {
-  // const user = JSON.parse(localStorage.getItem('user'))
-  
-  if (!user) { return children; }
-  else { return <Navigate to={'/'} />; }
-}
-
-
-// 
-const ProtectedUser = ({ children }) => {
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // const user=false;
-  if (user) { return children; }
-  else { return <Navigate to={'/login'} />; }
 }
 
 export default App;
