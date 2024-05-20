@@ -99,8 +99,8 @@ const removeAvatarAPI = createAsyncThunk(
 const updateAccountAPI = createAsyncThunk(
   "profile/updateAccount",
   async (data, { rejectWithValue }) => {
+    console.log(data)
     try {
-      console.log(data)
       const response = await axios.post('http://localhost:8000/api/v1/users/update-user-details', {fullname: data.fullname, username: data.username, bio: data.bio, addLinks: data.links}, {withCredentials: true})
       console.log(response.data)
       return response.data

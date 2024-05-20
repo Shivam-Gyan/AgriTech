@@ -156,62 +156,7 @@ const userLogout = asyncHandler(async (_, res) => {
 });
 
 // Update User Account Details
-const updateUserAccountDetails = asyncHandler(async (req, res) => {
-  const { fullname, username, bio, addLinks } = req.body;
-
-  if (!fullname || !username) {
-    throw new ApiError(
-      StatusCodes.BAD_REQUEST,
-      "Fullname and username required"
-    );
-  }
-
-  const existedUser = await User.findOne({ username });
-
-  if (!bio && existedUser.bio) {
-    existedUser.bio = undefined;
-    await existedUser.save();
-  }
-
-  if (existedUser && req.user.username !== username) {
-    return res
-      .status(StatusCodes.CONFLICT)
-      .json(
-        new ApiResponse(
-          StatusCodes.CONFLICT,
-          req.user,
-          "Username already existed"
-        )
-      );
-  }
-
-  const updateUser = {
-    fullname,
-    username,
-    bio,
-  };
-
-  if (addLinks) {
-    updateUser.links = addLinks;
-  }
-
-  const user = await User.findByIdAndUpdate(
-    req.user._id,
-
-    {
-      $set: updateUser,
-    },
-    {
-      new: true,
-    }
-  ).select("-password");
-
-  return res
-    .status(StatusCodes.OK)
-    .json(
-      new ApiResponse(StatusCodes.OK, user, "User updated successfully!")
-    );
-});
+ 
 
 // Change Password
 const changePassword = asyncHandler(async (req, res) => {

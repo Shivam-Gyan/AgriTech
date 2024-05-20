@@ -30,6 +30,9 @@ const userSchema = new Schema(
     avatar: {
       type: String
     },
+    bi0:{
+      type: String
+    },
     posts:[ {
       type: mongoose.Schema.Types.ObjectId,
       ref:"Post"
