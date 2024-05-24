@@ -25,7 +25,6 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route path="/" element={<Home />} />
-
             <Route path='/profile' element={<AuthLayout authentication={true}><UserProfile /></AuthLayout>} />
             <Route path='/comment' element={<AuthLayout authentication={true}><Comment /></AuthLayout>} />
             <Route path='/editprofile' element={<AuthLayout authentication={true}><EditProfile /></AuthLayout>} />

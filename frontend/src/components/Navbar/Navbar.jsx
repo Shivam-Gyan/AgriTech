@@ -1,8 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-// import {toast} from 'react-toastify'
-// import { logoutAPI } from '../../store/services/userAction'
 import Logout from '../Logout'
 
 const Navbar = () => {
